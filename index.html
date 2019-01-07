@@ -91,16 +91,34 @@
             const numOfRow = numRowBlock + numberOnRow;
             const numOfColumn = numColumnBlock + numberOnColumn;
 
-
             $('.nonogram-container').html(instructionBuild($('#row_number').val(), $('#column_number').val()));
+
         }
 
         function instructionBuild(row, col) {
             var numberOnRow = Math.ceil(row / 2);
             var numberOnColumn = Math.ceil(col / 2);
+            
+            row = Number(row);
+            col = Number(col);
 
-            var tableRow = row + numberOnRow;
-            var tableColumn = col + numberOnColumn;
+            var tableRow = numberOnRow + row;
+            var tableColumn = numberOnColumn + col;
+
+            console.log(tableRow + ' ' + tableColumn);
+
+            result = '<table><tbody>';
+            
+            for (var eachRow = 1; eachRow <= tableRow; eachRow++) {
+                result += '<tr>';
+                for (var eachCol = 1; eachCol <= tableColumn; eachCol++) {
+                    result += '<td></td>';
+                }
+                result += '</tr>';
+            }
+
+            result += '</tbody></table>';
+            return result;
         }
     </script>
 </body>
