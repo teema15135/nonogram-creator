@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Nonogram creator - by teema15135</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="./style/style.css" />
+    <script src="./lib/jquery.js"></script>
+    <script src="./script/script.js" defer></script>
+</head>
+
+<body>
+    <div class='starter-container'>
+        <div class='header-container'>
+            <h1>Nonogram creator</h1>
+            <h5>by teema15135</h5>
+        </div>
+        <form>
+            <table class='input-table'>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label for='nono_name'>Nonogram Name: </label>
+                        </td>
+                        <td>
+                            <input id='nono_name' type='text' placeholder='Enter name...'>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for='row_number'>Number of Row: </label>
+                        </td>
+                        <td>
+                            <input id='row_number' type='number' min='1' value='8'>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for='column_number'>Number of Column: </label>
+                        </td>
+                        <td>
+                            <input id='column_number' type='number' min='1' value='8'>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input id='create_btn' type='submit' value='Create Table'>
+        </form>
+    </div>
+    <div class='nonogram-container'>
+
+    </div>
+
+    <script>
+        var tableShowing = false;
+
+        $('#create_btn').click(function (event) {
+            event.preventDefault();  // disable default form submit that make page refreshed
+            var confirm = validateInput();
+            if (confirm == 'sure')
+                createTable();
+            else if (confirm == 'cancel')
+                null;
+            else
+                alert('Please enter information correctly!');
+        });
+
+        function validateInput() {
+            if (true /* The input is correct */) {
+                if (tableShowing) {
+                    if (confirm('Are you sure to create new the table ? This process can\'t be undone.')) {
+                        return 'sure';
+                    }
+                    return 'cancel';
+                }
+                else {
+                    return 'sure';
+                }
+            }
+            else
+                return 'incorrect';
+        }
+
+        function createTable() {
+            tableShowing = true;
+            const numRowBlock = '';
+            const numColumnBlock = '';
+            const numberOnRow = Math.ceil(numRowBlock / 2);
+            const numberOnColumn = Math.ceil(numColumnBlock / 2);
+
+            const numOfRow = numRowBlock + numberOnRow;
+            const numOfColumn = numColumnBlock + numberOnColumn;
+
+
+            $('.nonogram-container').html(instructionBuild($('#row_number').val(), $('#column_number').val()));
+        }
+
+        function instructionBuild(row, col) {
+            var numberOnRow = Math.ceil(row / 2);
+            var numberOnColumn = Math.ceil(col / 2);
+
+            var tableRow = row + numberOnRow;
+            var tableColumn = col + numberOnColumn;
+        }
+    </script>
+</body>
+
+</html>
